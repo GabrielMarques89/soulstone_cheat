@@ -6,15 +6,18 @@ namespace soulstone_menu {
     bool active = false;
 
     void unlimited_runes_button( ) {
-        ImGui::Text("HP:");
+        ImGui::Text("Add 10 skill points:");
 
-        static bool* unlimited_runes_active = new bool(false);
-
-        if (ImGui::Button(*unlimited_runes_active ? "Desativar" : "Ativar")) {
-            *unlimited_runes_active = !*unlimited_runes_active;
-            if (*unlimited_runes_active) {
-                CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)soulstone::unlimited_hp, unlimited_runes_active, NULL, NULL);
-            }
+        if (ImGui::Button("10 skill points")) {
+            CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)soulstone::add_skills, nullptr, NULL, NULL);
         }
+        // static bool* unlimited_runes_active = new bool(false);
+
+        // if (ImGui::Button(*unlimited_runes_active ? "Desativar" : "Ativar")) {
+        //     *unlimited_runes_active = !*unlimited_runes_active;
+        //     if (*unlimited_runes_active) {
+        //         CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)soulstone::add_skills, nullptr, NULL, NULL);
+        //     }
+        // }
     }
 }

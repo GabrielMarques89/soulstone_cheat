@@ -25,8 +25,8 @@ namespace soulstone {
     // DWORD_PTR* skills_pointer = get_pointer(reinterpret_cast<uintptr_t>(GetModuleHandleA("UnityPlayer.dll")),
     //                                         {0x019DD5C8, 0x128, 0x90, 0x10, 0x60, 0x68, 0x4C});
 
-    DWORD_PTR* hp_pointer = get_pointer(reinterpret_cast<uintptr_t>(GetModuleHandleA("UnityPlayer.dll")),
-                                            {0x019DD5C8,0x278, 0xE0, 0x28, 0xA8});
+    std::vector<uintptr_t> offsets = {0x19DD5C8, 0x118, 0x0, 0x30, 0x38, 0x28, 0xC8, 0x18};
+    DWORD_PTR* skill_ptr = get_pointer(reinterpret_cast<uintptr_t>(GetModuleHandleA("UnityPlayer.dll")), offsets);
     constexpr long refresh_delay = 500;
     bool isActive = true;
 
@@ -50,11 +50,19 @@ namespace soulstone {
     void unlimited_hp(bool* active) {
         while (*active) {
             try {
-                *hp_pointer = 15.33f;
+                *skill_ptr = *skill_ptr + 10;
             } catch (...) {
                 // do nothing - values not loaded yet
             }
             Sleep(refresh_delay);
+        }
+    }
+
+    void add_skills( ) {
+        try {
+            *skill_ptr = *skill_ptr + 10;
+        } catch (...) {
+            // do nothing - values not loaded yet
         }
     }
 
